@@ -58,67 +58,75 @@ A aplicação segue uma estrutura organizada em módulos:
 └── package.json
 ```
 ## 📦 Pré-requisitos
+
 Antes de começar, certifique-se de ter instalado em sua máquina:
-Git
-Node.js
-MongoDB (Rodando localmente na porta 27017) ou uma URI do MongoDB Atlas.
+
+* [Git](https://git-scm.com)
+* [Node.js](https://nodejs.org/) (Versão LTS recomendada)
+* [MongoDB](https://www.mongodb.com/try/download/community) (Rodando localmente na porta `27017`) **OU** acesso a um cluster no MongoDB Atlas.
+
+---
 
 ## 🔧 Instalação e Execução
 
-Clone o repositório:
-Bash
-git clone [https://github.com/LeandroMeca/api-nodejs.git](https://github.com/LeandroMeca/api-nodejs.git)
-cd api-nodejs
+Siga os passos abaixo para rodar o projeto localmente:
 
-Instale as dependências:
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/LeandroMeca/api-nodejs.git](https://github.com/LeandroMeca/api-nodejs.git)
+    cd api-nodejs
+    ```
 
-Bash
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    ```
 
-npm install
-Configuração do Ambiente (.env): Crie um arquivo .env na raiz do projeto. Embora o projeto esteja configurado para rodar localmente por padrão, as variáveis são necessárias caso mude para o Atlas:
+3.  **Configuração do Ambiente (.env):**
+    Crie um arquivo `.env` na raiz do projeto.
+    * *Nota: O projeto roda localmente por padrão, mas se for usar o Atlas, configure as variáveis:*
 
-Snippet de código
+    ```env
+    # Apenas se for usar conexão externa (Atlas)
+    MONGODB_USERNAME=seu_usuario
+    MONGODB_PASSWORD=sua_senha
+    ```
 
-MONGODB_USERNAME=seu_usuario
-MONGODB_PASSWORD=sua_senha
-Execute a aplicação:
+4.  **Execute a aplicação:**
+    ```bash
+    npm start
+    # Ou
+    node index.js
+    ```
 
-Bash
+    ✅ **Sucesso:** O terminal deve exibir:
+    > `Conectado ao banco de dados com sucesso!`
+    > `rodando com o server na porta 8080!`
 
-npm start
-# Ou diretamente via node:
-node index.js
-Você verá no terminal:
+---
 
-Conectado ao banco de dados com sucesso! rodando com o server na porta 8080!
+## 📍 Rotas da API
 
-## 📍 Endpoints da API
-### A API roda na porta 8080.
-Método Rota Descrição
-GET/usersLista todos os usuários cadastrados.
-GET/users/:idBusca detalhes de um usuário pelo ID.
-POST/usersCria um novo usuário (Requer Body JSON).
-PATCH/users/:idAtualiza um usuário existente (Requer Body JSON).
-DELETE/users/:idRemove um usuário pelo ID.
+A API roda na porta **8080**. Utilize o **Postman** ou **Insomnia** para testar.
 
+| Método | Rota | Descrição |
+| :--- | :--- | :--- |
+| **GET** | `/users` | Lista todos os usuários cadastrados. |
+| **GET** | `/users/:id` | Busca detalhes de um usuário pelo ID. |
+| **POST** | `/users` | Cria um novo usuário (Requer JSON no corpo). |
+| **PATCH** | `/users/:id` | Atualiza parcialmente um usuário (Requer JSON). |
+| **DELETE** | `/users/:id` | Remove um usuário pelo ID. |
+
+---
 
 ## 📝 Modelo de Dados
-O Schema do usuário (user.model.js) impõe as seguintes regras para o corpo da requisição (JSON):
 
-JSON
+O Schema do usuário (`user.model.js`) espera o seguinte formato JSON no corpo da requisição:
+
+```json
 {
   "firstName": "Leandro",
   "lastName": "Meca",
   "email": "leandro@exemplo.com",
   "password": "senha_super_segura"
 }
-
-Regras de Validação:
-firstName: String (Obrigatório, remove espaços em branco).
-lastName: String (Obrigatório, remove espaços em branco).
-email: String (Obrigatório, Único, converte para minúsculo).
-password: String (Obrigatório, mínimo de 7 caracteres).
-
-## 📄 Licença
-Este projeto está sob a licença MIT.
-Feito com 💜 por Leandro Meca.
